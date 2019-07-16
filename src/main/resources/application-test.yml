@@ -1,15 +1,6 @@
 server:
   port: 8081
 
-basket:
-  host: basket-amazin-dev.apps.ocp.datr.eu
-
-inventory:
-  host: inventory-amazin-dev.apps.ocp.datr.eu
-
-user:
-  host: user-amazin-dev.apps.ocp.datr.eu
-
 logging:
   level:
     org:
