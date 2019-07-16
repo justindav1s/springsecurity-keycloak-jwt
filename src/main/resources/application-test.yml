@@ -1,0 +1,36 @@
+server:
+  port: 8081
+
+basket:
+  host: basket-amazin-dev.apps.ocp.datr.eu
+
+inventory:
+  host: inventory-amazin-dev.apps.ocp.datr.eu
+
+user:
+  host: user-amazin-dev.apps.ocp.datr.eu
+
+logging:
+  level:
+    org:
+      springframework:
+        security: INFO
+
+spring:
+  application:
+    name: api-gateway-test
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:8080/auth/realms/amazin
+
+jwt:
+  azp: webapp
+
+test:
+  jwt:
+    username: "justin"
+    password: "12jnd34"
+    client_id: "webapp"
+    client_secret: "cc48f8ad-80d3-4019-8d36-7dfb6f5c86e7"

@@ -1,0 +1,14 @@
+HTTP/2 302 
+date: Tue, 16 Jul 2019 14:04:32 GMT
+content-length: 0
+location: http://localhost:8080?session_state=eb888240-c309-47c0-a107-efb67d457cc1&code=c0cd206d-ef62-4a60-ae58-7199fd61d5b7.eb888240-c309-47c0-a107-efb67d457cc1.08c916e1-aa2b-486a-8901-260b9a5f4e48
+server: nginx/1.14.1
+cache-control: no-store, must-revalidate, max-age=0
+set-cookie: AUTH_SESSION_ID=eb888240-c309-47c0-a107-efb67d457cc1.kc-2-x6r78; Version=1; Path=/auth/realms/VRM-DEV/; Secure; HttpOnly
+set-cookie: KC_RESTART=eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyMGI5ZTIzYS00ZGZiLTQzNDItOThmNC1iODJhNzQxZThjNTQifQ.eyJjaWQiOiJ2cm0tc2hlbGwtb2lkYyIsInB0eSI6Im9wZW5pZC1jb25uZWN0IiwicnVyaSI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MCIsImFjdCI6IkFVVEhFTlRJQ0FURSIsIm5vdGVzIjp7InNjb3BlIjoib3BlbmlkIiwiaXNzIjoiaHR0cHM6Ly9rYy5zZXJ2aWNlcy50aGVvc21vLmNvbS9hdXRoL3JlYWxtcy9WUk0tREVWIiwicmVzcG9uc2VfdHlwZSI6ImNvZGUiLCJyZWRpcmVjdF91cmkiOiJodHRwOi8vbG9jYWxob3N0OjgwODAiLCJjb2RlX2NoYWxsZW5nZV9tZXRob2QiOiJwbGFpbiJ9fQ.6i06re2f9CEXUZHMvyUy_xpCxyUYFa-vAG3hm-AserE; Version=1; Path=/auth/realms/VRM-DEV/; Secure; HttpOnly
+set-cookie: KC_RESTART=; Version=1; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/VRM-DEV/; Secure; HttpOnly
+set-cookie: KEYCLOAK_IDENTITY=eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIyMGI5ZTIzYS00ZGZiLTQzNDItOThmNC1iODJhNzQxZThjNTQifQ.eyJqdGkiOiJkM2JiMjJiMS05MGIwLTRjMzYtYjY4YS1jZTUwYzBjNmI5MWUiLCJleHAiOjE1NjMzMjE4NzIsIm5iZiI6MCwiaWF0IjoxNTYzMjg1ODcyLCJpc3MiOiJodHRwczovL2tjLnNlcnZpY2VzLnRoZW9zbW8uY29tL2F1dGgvcmVhbG1zL1ZSTS1ERVYiLCJzdWIiOiJlYWExYzE5ZS05ZWIzLTRhN2QtYmU3Ni04YWJkZmM0MDFkYmQiLCJhdXRoX3RpbWUiOjAsInNlc3Npb25fc3RhdGUiOiJlYjg4ODI0MC1jMzA5LTQ3YzAtYTEwNy1lZmI2N2Q0NTdjYzEiLCJzdGF0ZV9jaGVja2VyIjoia2ZKeTNONG5xV2o0OUpZRkkxOFVnYmNhS1c3bDh3UDRNSjdiM200MXUzNCJ9.L1AQQRZhDgpadJAti9_7msVjYO0BzY_n3PBUp0GHoh0; Version=1; Path=/auth/realms/VRM-DEV/; Secure; HttpOnly
+set-cookie: KEYCLOAK_SESSION=VRM-DEV/eaa1c19e-9eb3-4a7d-be76-8abdfc401dbd/eb888240-c309-47c0-a107-efb67d457cc1; Version=1; Expires=Wed, 17-Jul-2019 00:04:32 GMT; Max-Age=36000; Path=/auth/realms/VRM-DEV/; Secure
+set-cookie: KEYCLOAK_REMEMBER_ME=; Version=1; Comment=Expiring cookie; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Max-Age=0; Path=/auth/realms/VRM-DEV/; Secure; HttpOnly
+p3p: CP="This is not a P3P policy!"
+

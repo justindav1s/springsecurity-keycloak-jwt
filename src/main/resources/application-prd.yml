@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+basket:
+  host: basket-prd:8080
+
+inventory:
+  host: inventory-prd:8080
+
+user:
+  host: user-prd:8080
+
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
+
+spring:
+  application:
+    name: api-gateway-prd
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://127.0.0.1:8080/auth/realms/amazin
+
+jwt:
+  azp: webapp
