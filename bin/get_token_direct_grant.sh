@@ -34,7 +34,7 @@ POST_BODY="grant_type=${GRANT_TYPE}&client_id=${CLIENT}&client_secret=${CLIENT_S
 #echo "Keycloak host : $KEYCLOAK"
 #echo POST_BODY=${POST_BODY}
 
-RESPONSE=$(curl -qsk \
+RESPONSE=$(curl -vk \
     -d ${POST_BODY} \
     -H "Content-Type: application/x-www-form-urlencoded" \
     ${KEYCLOAK}/auth/realms/${REALM}/protocol/openid-connect/token)

@@ -12,13 +12,13 @@ function padBase64  {
 }
 
 
-KEYCLOAK=https://kc.services.theosmo.com
-REALM="VRM-DEV"
+KEYCLOAK=http://127.0.0.1:8080
+REALM="amazin"
 GRANT_TYPE="authorization_code"
-CLIENT="vrm-shell-oidc"
-CLIENT_SECRET="d32bcc46-0073-4866-8a2d-09731e7f06cb"
+CLIENT="webapp"
+CLIENT_SECRET="cc48f8ad-80d3-4019-8d36-7dfb6f5c86e7"
 USER="justind"
-USER_PASSWORD="S@far123"
+USER_PASSWORD="12jnd34"
 
 echo "Keycloak host : $KEYCLOAK"
 
@@ -55,20 +55,22 @@ PART2_BASE64=$(padBase64 ${PART2_BASE64})
 echo "ACCESS TOKEN"
 echo ${PART2_BASE64} | base64 -D | jq .
 
-echo
-ACCESS_TOKEN=$(echo ${RESPONSE} | jq -r .refresh_token)
-PART2_BASE64=$(echo ${ACCESS_TOKEN} | cut -d"." -f2)
-PART2_BASE64=$(padBase64 ${PART2_BASE64})
-echo "REFRESH TOKEN"
-echo ${PART2_BASE64} | base64 -D | jq .
+#echo
+#ACCESS_TOKEN=$(echo ${RESPONSE} | jq -r .refresh_token)
+#PART2_BASE64=$(echo ${ACCESS_TOKEN} | cut -d"." -f2)
+#PART2_BASE64=$(padBase64 ${PART2_BASE64})
+#echo "REFRESH TOKEN"
+#echo ${PART2_BASE64} | base64 -D | jq .
 
-echo
-ACCESS_TOKEN=$(echo ${RESPONSE} | jq -r .id_token)
-PART2_BASE64=$(echo ${ACCESS_TOKEN} | cut -d"." -f2)
-PART2_BASE64=$(padBase64 ${PART2_BASE64})
-echo "ID TOKEN"
-echo ${PART2_BASE64} | base64 -D | jq .
+#echo
+#ACCESS_TOKEN=$(echo ${RESPONSE} | jq -r .id_token)
+#PART2_BASE64=$(echo ${ACCESS_TOKEN} | cut -d"." -f2)
+#PART2_BASE64=$(padBase64 ${PART2_BASE64})
+#echo "ID TOKEN"
+#echo ${PART2_BASE64} | base64 -D | jq .
 
 
 
-curl -v -H "Authorization: Bearer ${ACCESS_TOKEN}" http://localhost:8080/api/shell/user
+curl  -H "Authorization: Bearer ${ACCESS_TOKEN}" http://127.0.0.1:8080/auth/realms/amazin/protocol/openid-connect/userinfo
+
+curl  -v -H "Authorization: Bearer ${ACCESS_TOKEN}" http://127.0.0.1:8081/api/products/all
