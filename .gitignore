@@ -25,3 +25,5 @@ hs_err_pid*
 /springsec5-keycloak.iml
 /.idea/
 **/*.iml
+/server/springsec5-rest-server.iml
+/client/springsec5-rest-client.iml
