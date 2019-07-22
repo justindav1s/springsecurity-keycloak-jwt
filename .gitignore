@@ -27,3 +27,5 @@ hs_err_pid*
 **/*.iml
 /server/springsec5-rest-server.iml
 /client/springsec5-rest-client.iml
+/server/target/
+/client/target/
