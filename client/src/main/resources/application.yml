@@ -1,0 +1,18 @@
+logging:
+  level:
+    org:
+      springframework:
+        security: TRACE
+        boot.autoconfigure:
+          logging: INFO
+
+# To access another secured micro-service
+security:
+  oauth2:
+    client:
+      client-id: sytemclient
+      client-secret: 121b57e2-6741-453d-b5ca-62a925c98662
+      user-authorization-uri: http://127.0.0.1:8080/auth/realms/amazin/protocol/openid-connect/auth
+      access-token-uri: http://127.0.0.1:8080/auth/realms/amazin/protocol/openid-connect/token
+      scope: openid
+      grant-type: client_credentials

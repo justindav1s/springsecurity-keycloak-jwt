@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ACCESS_TOKEN=$(./get_token_direct_grant.sh)
+ACCESS_TOKEN=$(get_token_direct_grant.sh)
 
 echo $ACCESS_TOKEN
 

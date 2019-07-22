@@ -11,7 +11,7 @@ function padBase64  {
     echo ${STR}
 }
 
-ACCESS_TOKEN=$(./get_token_direct_grant.sh)
+ACCESS_TOKEN=$(get_token_direct_grant.sh)
 
 echo $ACCESS_TOKEN
 PART2_BASE64=$(echo ${ACCESS_TOKEN} | cut -d"." -f2)
@@ -24,5 +24,5 @@ curl -v -X GET \
     -H 'Accept: application/json' \
     -H 'Content-Type: application/json' \
     -H "Authorization: Bearer ${ACCESS_TOKEN}" \
-    http://127.0.0.1:8081/api/products/all
+    http://127.0.0.1:8081/api/products/types
 

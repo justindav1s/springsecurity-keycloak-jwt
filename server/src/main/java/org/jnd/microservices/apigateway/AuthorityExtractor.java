@@ -24,22 +24,16 @@ public class AuthorityExtractor extends JwtAuthenticationConverter {
 
     protected Collection<GrantedAuthority> extractAuthorities(Jwt jwt) {
 
-        log.debug("Looking for azp claim for : " + azp);
-
-        String authParty = (String) jwt.getClaims().get("azp");
-
         Collection<String> authorities = new ArrayList<String>();
 
-        if (azp.equals(authParty)) {
-            log.debug("Token was issued by matching Authorizing Party  : " + authParty);
-            log.debug("Extracting Roles for Authorizing Party : " + authParty);
+        log.debug("Extracting Roles for my App : " + azp);
 
-            Map<String, Object> resourceacc = (Map<String, Object>) jwt.getClaims().get("resource_access");
-            Map<String, Object> scopedapp = (Map<String, Object>) resourceacc.get(authParty);
-            authorities = (Collection<String>) scopedapp.get("roles");
+        Map<String, Object> resourceacc = (Map<String, Object>) jwt.getClaims().get("resource_access");
+        Map<String, Object> scopedapp = (Map<String, Object>) resourceacc.get(azp);
+        authorities = (Collection<String>) scopedapp.get("roles");
 
-            log.debug("Found authorities : " + authorities);
-        }
+        log.debug("Found authorities : " + authorities);
+
 
         return authorities.stream()
                 .map(SimpleGrantedAuthority::new)
