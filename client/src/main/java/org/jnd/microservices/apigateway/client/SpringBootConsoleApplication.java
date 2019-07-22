@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResourceDetails;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -30,7 +31,11 @@ public class SpringBootConsoleApplication
     @Override
     public void run(String... args) {
         LOG.info("EXECUTING : command line runner");
-        oauth2RestTemplate.getForObject("http://127.0.0.1:8081/api/products/all", String.class);
+
+        String response = oauth2RestTemplate.getForObject("http://127.0.0.1:8081/api/products/all", String.class);
+
+        LOG.info("RESPONSE : "+response);
+
         LOG.info("FINISHED");
     }
 
@@ -38,7 +43,6 @@ public class SpringBootConsoleApplication
     @Bean
     public OAuth2RestTemplate oauth2RestTemplate(OAuth2ProtectedResourceDetails details) {
         OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(details);
-
         /* To validate if required configurations are in place during startup */
         OAuth2AccessToken token = oAuth2RestTemplate.getAccessToken();
         LOG.info("token : "+token.getValue());
