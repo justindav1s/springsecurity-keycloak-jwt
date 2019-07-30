@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -18,13 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.PostConstruct;
 
 @Configuration
-@PropertySources({
-        @PropertySource(value = "classpath:config.${spring.profiles.active}.properties", ignoreResourceNotFound = true),
-        @PropertySource(value = "file:/config/config.${spring.profiles.active}.properties", ignoreResourceNotFound = true)
-})
 @EnableAutoConfiguration
 @SpringBootApplication
 @RestController
+
+
 public class GatewayApplication extends SpringBootServletInitializer  {
 
     private static final Logger log = LoggerFactory.getLogger(GatewayController.class);

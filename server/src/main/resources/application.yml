@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 1080
 
 logging:
   level:
@@ -10,6 +10,13 @@ logging:
 spring:
   application:
     name: api-gateway-test
+
+#  security:
+#    oauth2:
+#      resourceserver:
+#        jwt:
+#          issuer-uri: https://kc.services.theosmo.com/auth/realms/VRM-DEV
+
   security:
     oauth2:
       resourceserver:
@@ -17,11 +24,4 @@ spring:
           issuer-uri: http://127.0.0.1:8080/auth/realms/amazin
 
 jwt:
-  azp: webapp
-
-test:
-  jwt:
-    username: "justin"
-    password: "12jnd34"
-    client_id: "webapp"
-    client_secret: "cc48f8ad-80d3-4019-8d36-7dfb6f5c86e7"
+  azp: vrm-shell-oidc

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -40,8 +41,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        log.debug("Securing Application : " + azp);
-
         //to do a HTTP POST, we must turn off Cross-Site Request Forgery protection, which is on by default
         http.csrf().disable();
 
@@ -51,55 +50,99 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //must present a valid access token
         http
                 .authorizeRequests()
-                .antMatchers("/api/products/all").hasRole("product")
-                .antMatchers("/**").denyAll()
+                .antMatchers("/api/products/**").anonymous()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2ResourceServer()
                 .jwt()
-                .jwtAuthenticationConverter(authorityExtractor(azp));
+                .jwtAuthenticationConverter(authorityExtractor());
 
     }
 
-    Converter<Jwt, AbstractAuthenticationToken> authorityExtractor(String azp) {
-        return new AuthorityExtractor(azp);
+    Converter<Jwt, AbstractAuthenticationToken> authorityExtractor() {
+        return new AuthorityExtractor();
     }
 
 }
 
 
-
-
-// Method above extracts roles from a JWT Access that looks like this
-//        {
-//        "jti": "8c14401d-efc0-4bcc-ad0a-5af053a24fb5",
-//        "exp": 1562925978,
+// Example Access Token
+//{
+//        "jti": "ce4e8113-34dd-49fc-9a9d-85a7dad96dee",
+//        "exp": 1564394303,
 //        "nbf": 0,
-//        "iat": 1562925678,
-//        "iss": "http://127.0.0.1:8080/auth/realms/amazin",
-//        "aud": "webapp",
-//        "sub": "23f21545-19e6-4189-8795-8a303905eaca",
+//        "iat": 1564394003,
+//        "iss": "https://kc.services.theosmo.com/auth/realms/VRM-DEV",
+//        "aud": [
+//        "realm-management",
+//        "account"
+//        ],
+//        "sub": "Justin",
 //        "typ": "Bearer",
-//        "azp": "webapp",
+//        "azp": "vrm-shell-oidc",
 //        "auth_time": 0,
-//        "session_state": "23442335-5c72-4fcc-b6d8-64dfd4076db5",
+//        "session_state": "5a127642-ba81-498b-8f01-2cafa62a572f",
 //        "acr": "1",
-//        "allowed-origins": [ "*"],
-//        "resource_access": {
-//            "webapp": {
-//                "roles": [
-//                        "ROLE_product",
-//                        "ROLE_user",
-//                        "ROLE_basket"
-//                  ]
-//            }
+//        "allowed-origins": [
+//        "https://vrm-shell-oidc-vrm-dev.nonprod.theosmo.com",
+//        "https://vrm-shell-vrm-dev.nonprod.theosmo.com",
+//        "http://localhost:8080"
+//        ],
+//        "realm_access": {
+//        "roles": [
+//        "offline_access",
+//        "uma_authorization"
+//        ]
 //        },
+//        "resource_access": {
+//        "realm-management": {
+//        "roles": [
+//        "view-identity-providers",
+//        "view-realm",
+//        "manage-identity-providers",
+//        "impersonation",
+//        "realm-admin",
+//        "create-client",
+//        "manage-users",
+//        "query-realms",
+//        "view-authorization",
+//        "query-clients",
+//        "query-users",
+//        "manage-events",
+//        "manage-realm",
+//        "view-events",
+//        "view-users",
+//        "view-clients",
+//        "manage-authorization",
+//        "manage-clients",
+//        "query-groups"
+//        ]
+//        },
+//        "vrm-shell-oidc": {
+//            "roles": [
+//                  "vrmuser"
+//            ]
+//        },
+//        "account": {
+//        "roles": [
+//                "manage-account",
+//                "manage-account-links",
+//                "view-profile"
+//        ]
+//        }
+//        },
+//        "scope": "email profile",
+//        "email_verified": true,
 //        "name": "Justin Davis",
-//        "preferred_username": "justin",
+//        "preferred_username": "justind",
 //        "given_name": "Justin",
 //        "family_name": "Davis",
-//        "email": "justinndavis@gmail.com"
+//        "email": "jusdavis@redhat.com",
+//        "authorities": [
+//              "vrmuser"
+//        ]
 //        }
+
 
 
 

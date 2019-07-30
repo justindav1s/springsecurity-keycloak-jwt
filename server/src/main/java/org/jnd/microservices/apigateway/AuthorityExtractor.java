@@ -16,24 +16,18 @@ public class AuthorityExtractor extends JwtAuthenticationConverter {
 
     private static final Logger log = LoggerFactory.getLogger(AuthorityExtractor.class);
 
-    String azp;
-
-    public AuthorityExtractor(String azp) {
-        this.azp = azp;
+    public AuthorityExtractor() {
     }
 
     protected Collection<GrantedAuthority> extractAuthorities(Jwt jwt) {
 
         Collection<String> authorities = new ArrayList<String>();
 
-        log.debug("Extracting Roles for my App : " + azp);
+        log.debug("Extracting Roles");
 
-        Map<String, Object> resourceacc = (Map<String, Object>) jwt.getClaims().get("resource_access");
-        Map<String, Object> scopedapp = (Map<String, Object>) resourceacc.get(azp);
-        authorities = (Collection<String>) scopedapp.get("roles");
+        authorities = (Collection<String>) jwt.getClaims().get("authorities");
 
         log.debug("Found authorities : " + authorities);
-
 
         return authorities.stream()
                 .map(SimpleGrantedAuthority::new)

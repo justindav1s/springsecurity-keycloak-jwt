@@ -11,7 +11,7 @@ function padBase64  {
     echo ${STR}
 }
 
-ACCESS_TOKEN=$(get_token_direct_grant.sh)
+ACCESS_TOKEN=$(./get_token_direct_grant.sh)
 
 echo $ACCESS_TOKEN
 PART2_BASE64=$(echo ${ACCESS_TOKEN} | cut -d"." -f2)
