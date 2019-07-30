@@ -14,5 +14,7 @@
     <modules>
         <module>client</module>
         <module>server</module>
+        <module>webapp_mvc</module>
+        <module>webapp</module>
     </modules>
 </project>
