@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="'Hello, ' + ${name} + '!'" />
+<p th:text="'Product Types : ' + ${productTypes}" />
+<p th:text="'Product List : ' + ${productList}" />
+<p>Product List from JS call : <div id="display"/></p>
+<p/>
+
+<button type="submit" onclick="javascript:callAPI()">call</button>
+
+<script type="text/javascript" language="javascript">
+function callAPI() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open('GET', 'http://127.0.0.1:9080/all');
+    xhttp.setRequestHeader('Content-Type', 'application/json');
+    xhttp.send();
+    var response = JSON.parse(xhttp.responseText);
+    document.getElementById('display').innerHTML = JSON.stringify(response);
+}
+</script>
+</body>
+</html>

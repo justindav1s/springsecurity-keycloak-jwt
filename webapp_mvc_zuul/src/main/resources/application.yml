@@ -1,0 +1,20 @@
+server:
+  port: 9080
+
+logging:
+  level:
+    org:
+      thymeleaf: INFO
+      springframework:
+        security: TRACE
+
+spring:
+  application:
+    name: webapp
+
+zuul:
+  routes:
+    products:
+      path: /all
+      url: http://127.0.0.1:1080/api/products
+      stripPrefix: true

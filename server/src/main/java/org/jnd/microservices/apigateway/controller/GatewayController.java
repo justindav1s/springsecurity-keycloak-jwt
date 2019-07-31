@@ -18,7 +18,7 @@ public class GatewayController {
     @RequestMapping(value = "/products/{id}", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getProduct(@PathVariable int id, @RequestHeader HttpHeaders headers) {
 
-        ResponseEntity<?> response = new ResponseEntity<>("[{\"id\":\"1\",\"name\":\"socks\",\"type\":\"CLOTHES\",\"price\":3.39,\"}", HttpStatus.OK);
+        ResponseEntity<?> response = new ResponseEntity<>("[{\"id\":\"1\",\"name\":\"socks\",\"type\":\"CLOTHES\",\"price\":3.39,\"}]", HttpStatus.OK);
 
         return response;
 
@@ -35,7 +35,7 @@ public class GatewayController {
     @RequestMapping(value = "/products/all", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getAllProducts(@RequestHeader HttpHeaders headers) {
 
-        ResponseEntity<?> response = new ResponseEntity<>("[{\"id\":\"11\",\"name\":\"socks\",\"type\":\"CLOTHES\",\"price\":3.39,\"basketIndex\":0}", HttpStatus.OK);
+        ResponseEntity<?> response = new ResponseEntity<>("[{\"id\":\"11\",\"name\":\"socks\",\"type\":\"CLOTHES\",\"price\":3.39,\"basketIndex\":0}]", HttpStatus.OK);
         return response;
     }
 

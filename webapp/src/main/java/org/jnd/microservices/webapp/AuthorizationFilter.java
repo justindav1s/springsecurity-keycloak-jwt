@@ -1,0 +1,62 @@
+package org.jnd.microservices.webapp;
+
+import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.stereotype.Component;
+
+import javax.servlet.http.HttpServletRequest;
+
+@Component
+public class AuthorizationFilter extends ZuulFilter {
+
+    @Autowired
+    OAuth2AuthorizedClientService clientService;
+
+    AuthorizationFilter(OAuth2AuthorizedClientService clientService){
+        this.clientService = clientService;
+    }
+
+    private static final Logger log = LoggerFactory.getLogger(AuthorizationFilter.class);
+
+    @Override
+    public String filterType() {
+        return "pre";
+    }
+
+    @Override
+    public int filterOrder() {
+        return 2;
+    }
+
+    @Override
+    public boolean shouldFilter() {
+        return true;
+    }
+
+    @Override
+    public Object run() {
+        RequestContext ctx = RequestContext.getCurrentContext();
+        HttpServletRequest request = ctx.getRequest();
+
+        SecurityContextImpl context = (SecurityContextImpl) request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
+        context.getAuthentication().getPrincipal();
+        OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) context.getAuthentication();
+
+        OAuth2AuthorizedClient client =
+                clientService.loadAuthorizedClient(
+                        oauthToken.getAuthorizedClientRegistrationId(),
+                        oauthToken.getName());
+
+        String accessToken = client.getAccessToken().getTokenValue();
+
+        ctx.addZuulRequestHeader("Authorization", "Bearer " + accessToken);
+        return null;
+    }
+}
