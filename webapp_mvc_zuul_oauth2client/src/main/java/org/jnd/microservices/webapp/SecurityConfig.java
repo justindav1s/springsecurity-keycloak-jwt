@@ -11,10 +11,7 @@ import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Configuration
@@ -27,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/index.html").hasAuthority("products")
+                .antMatchers("/products").hasAuthority("products")
                 .antMatchers("/test.html").hasAuthority("products")
                 .antMatchers("/all").hasAuthority("products")
                 .antMatchers("/").hasAuthority("products")
@@ -54,7 +52,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 }
             });
 
-            Collection<String> customAuth = (Collection<String>) userAttributes.get("authorities");
+            Collection<String> customAuth = new ArrayList<String>();
+            if (userAttributes.get("authorities") != null) {
+                customAuth = (Collection<String>) userAttributes.get("authorities");
+            }
 
             log.info("Found User Authorities : "+ customAuth);
 
