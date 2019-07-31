@@ -1,4 +1,4 @@
-package org.jnd.microservices.webapp;
+package org.jnd.microservices.webapp.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
@@ -17,35 +17,19 @@ import java.util.List;
 
 @Controller
 @Slf4j
-public class GreetingController {
+public class ProductController {
 
     RestTemplate restTemplate = new RestTemplate();
 
-    String uri_types = "http://127.0.0.1:1080/api/products/types";
     String uri_list = "http://127.0.0.1:9080/all";
 
 
-    @GetMapping("/greeting")
+    @GetMapping("/products")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model, @RequestHeader HttpHeaders headers) {
-        log.info("Greetings !");
-
-        log.info("WEB CLIENT >>>>>>>>>>>>> "+headers.toString());
 
         for (String key : headers.keySet())        {
-            log.info(">>>WEB CLIENT key : "+key+" value : "+headers.get(key));
+            log.info(">>>WEB APP Headers key : "+key+" value : "+headers.get(key));
         }
-
-
-        model.addAttribute("name", name);
-
-        ResponseEntity<String> productTypes =
-                this.restTemplate.exchange(
-                        uri_types,
-                        HttpMethod.GET,
-                        new HttpEntity<byte[]>(headers),
-                        new ParameterizedTypeReference<String>() {});
-
-        model.addAttribute("productTypes", productTypes.getBody());
 
         ResponseEntity<String> productList =
                 this.restTemplate.exchange(
@@ -57,7 +41,7 @@ public class GreetingController {
         model.addAttribute("productList", productList.getBody());
 
 
-        return "view";
+        return "product_view";
     }
 
 }

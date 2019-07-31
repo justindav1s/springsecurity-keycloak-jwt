@@ -16,12 +16,12 @@ import java.util.Map;
 
 @Component
 @Slf4j
-public class HeaderCheckerFilter extends ZuulFilter {
+public class PostRoutingHeaderCheckerFilter extends ZuulFilter {
 
     @Autowired
     OAuth2AuthorizedClientService clientService;
 
-    HeaderCheckerFilter(OAuth2AuthorizedClientService clientService){
+    PostRoutingHeaderCheckerFilter(OAuth2AuthorizedClientService clientService){
         this.clientService = clientService;
     }
 
@@ -43,7 +43,7 @@ public class HeaderCheckerFilter extends ZuulFilter {
     @Override
     public Object run() {
 
-        log.info("************>>>>>>>>>>>>> HeaderCheckerFilter  : run");
+        log.info("PostRoutingHeaderCheckerFilter  : run");
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 

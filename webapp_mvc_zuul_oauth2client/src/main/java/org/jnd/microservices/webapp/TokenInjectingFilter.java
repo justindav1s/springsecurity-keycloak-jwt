@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 
 @Component
 @Slf4j
-public class AuthorizationFilter extends ZuulFilter {
+public class TokenInjectingFilter extends ZuulFilter {
 
     @Autowired
     OAuth2AuthorizedClientService clientService;
 
-    AuthorizationFilter(OAuth2AuthorizedClientService clientService){
+    TokenInjectingFilter(OAuth2AuthorizedClientService clientService){
         this.clientService = clientService;
     }
 
@@ -41,7 +41,7 @@ public class AuthorizationFilter extends ZuulFilter {
     @Override
     public Object run() {
 
-        log.info("************>>>>>>>>>>>>> Zuul Filter  : run");
+        log.info("TokenInjectingFilter : run");
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
