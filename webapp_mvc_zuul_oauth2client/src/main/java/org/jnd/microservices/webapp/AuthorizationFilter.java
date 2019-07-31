@@ -30,7 +30,7 @@ public class AuthorizationFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return 1;
+        return 2;
     }
 
     @Override

@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //must present a valid access token
         http
                 .authorizeRequests()
-                .antMatchers("/api/products/**").anonymous()
+                .antMatchers("/api/products/**").hasAuthority("products")
                 .anyRequest().authenticated()
                 .and()
                 .oauth2ResourceServer()

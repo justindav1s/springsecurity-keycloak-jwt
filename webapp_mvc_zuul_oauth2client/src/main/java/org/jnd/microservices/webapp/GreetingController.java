@@ -29,16 +29,22 @@ public class GreetingController {
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model, @RequestHeader HttpHeaders headers) {
         log.info("Greetings !");
 
-        log.info(">>>>>>>>>>>>> "+headers.toString());
+        log.info("WEB CLIENT >>>>>>>>>>>>> "+headers.toString());
 
         for (String key : headers.keySet())        {
-            log.info(">>> key :"+key+" value : "+headers.get(key));
+            log.info(">>>WEB CLIENT key : "+key+" value : "+headers.get(key));
         }
 
 
         model.addAttribute("name", name);
 
-        ResponseEntity<String> productTypes = restTemplate.getForEntity(uri_types, String.class);
+        ResponseEntity<String> productTypes =
+                this.restTemplate.exchange(
+                        uri_types,
+                        HttpMethod.GET,
+                        new HttpEntity<byte[]>(headers),
+                        new ParameterizedTypeReference<String>() {});
+
         model.addAttribute("productTypes", productTypes.getBody());
 
         ResponseEntity<String> productList =

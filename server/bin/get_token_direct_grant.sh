@@ -12,19 +12,19 @@ function padBase64  {
 }
 
 
-KEYCLOAK=https://kc.services.theosmo.com
-REALM="VRM-DEV"
+KEYCLOAK=http://127.0.0.1:8080
+REALM="amazin"
 GRANT_TYPE="password"
-CLIENT="vrm-shell-oidc"
-CLIENT_SECRET="d32bcc46-0073-4866-8a2d-09731e7f06cb"
+CLIENT="webapp"
+CLIENT_SECRET="cc48f8ad-80d3-4019-8d36-7dfb6f5c86e7"
 USER="justind"
-USER_PASSWORD="S@far123"
+USER_PASSWORD="12jnd34"
 
 #echo "Keycloak host : $KEYCLOAK"
 
 
 #Get Token
-POST_BODY="grant_type=${GRANT_TYPE}&client_id=${CLIENT}&client_secret=${CLIENT_SECRET}&username=${USER}&password=${USER_PASSWORD}"
+POST_BODY="scope=openid&grant_type=${GRANT_TYPE}&client_id=${CLIENT}&client_secret=${CLIENT_SECRET}&username=${USER}&password=${USER_PASSWORD}"
 
 #POST_BODY="grant_type=${GRANT_TYPE}&client_id=${CLIENT}&username=${USER}&password=${USER_PASSWORD}"
 
@@ -41,7 +41,7 @@ RESPONSE=$(curl -vk \
 ACCESS_TOKEN=$(echo ${RESPONSE} | jq -r .access_token)
 PART2_BASE64=$(echo ${ACCESS_TOKEN} | cut -d"." -f2)
 PART2_BASE64=$(padBase64 ${PART2_BASE64})
-#echo ${PART2_BASE64} | base64 -D | jq .
+echo ${PART2_BASE64} | base64 -D | jq .
 
 echo $ACCESS_TOKEN
 

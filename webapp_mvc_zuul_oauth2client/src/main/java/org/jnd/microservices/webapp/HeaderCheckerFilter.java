@@ -2,8 +2,7 @@ package org.jnd.microservices.webapp;
 
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
@@ -12,27 +11,28 @@ import org.springframework.security.oauth2.client.authentication.OAuth2Authentic
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
+import java.util.Map;
 
 @Component
-public class AuthorizationFilter extends ZuulFilter {
+@Slf4j
+public class HeaderCheckerFilter extends ZuulFilter {
 
     @Autowired
     OAuth2AuthorizedClientService clientService;
 
-    AuthorizationFilter(OAuth2AuthorizedClientService clientService){
+    HeaderCheckerFilter(OAuth2AuthorizedClientService clientService){
         this.clientService = clientService;
     }
 
-    private static final Logger log = LoggerFactory.getLogger(AuthorizationFilter.class);
-
     @Override
     public String filterType() {
-        return "pre";
+        return "post";
     }
 
     @Override
     public int filterOrder() {
-        return 2;
+        return 1;
     }
 
     @Override
@@ -42,21 +42,26 @@ public class AuthorizationFilter extends ZuulFilter {
 
     @Override
     public Object run() {
+
+        log.info("************>>>>>>>>>>>>> HeaderCheckerFilter  : run");
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        SecurityContextImpl context = (SecurityContextImpl) request.getSession().getAttribute("SPRING_SECURITY_CONTEXT");
-        context.getAuthentication().getPrincipal();
-        OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) context.getAuthentication();
+        Enumeration<String> header_names = request.getHeaderNames();
 
-        OAuth2AuthorizedClient client =
-                clientService.loadAuthorizedClient(
-                        oauthToken.getAuthorizedClientRegistrationId(),
-                        oauthToken.getName());
+        while (header_names.hasMoreElements())    {
+            String name = header_names.nextElement();
+            String value = request.getHeader(name);
+            log.info("Request Header name : "+name+" value : "+value);
 
-        String accessToken = client.getAccessToken().getTokenValue();
+        }
 
-        ctx.addZuulRequestHeader("Authorization", "Bearer " + accessToken);
+        Map<String, String> headers = ctx.getZuulRequestHeaders();
+        for (String key : headers.keySet())        {
+            log.info("Zuul Request Header key : "+key+" value : "+headers.get(key));
+        }
+
+
         return null;
     }
 }

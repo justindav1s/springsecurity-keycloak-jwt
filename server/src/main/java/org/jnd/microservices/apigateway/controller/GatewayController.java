@@ -27,6 +27,12 @@ public class GatewayController {
     @RequestMapping(value = "/products/types", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getProductTypes(@RequestHeader HttpHeaders headers) {
 
+        log.info("RES SERVER  getProductTypes >>>>>>>>>>>>> "+headers.toString());
+
+        for (String key : headers.keySet())        {
+            log.info(">>>RES SERVER  getProductTypes  key : "+key+" value : "+headers.get(key));
+        }
+
         ResponseEntity<?> response = new ResponseEntity<>("[\"CLOTHES\", \"CARS\", \"GADGETS\"]", HttpStatus.OK);
 
         return response;
@@ -35,7 +41,13 @@ public class GatewayController {
     @RequestMapping(value = "/products/all", method = RequestMethod.GET, produces = "application/json")
     ResponseEntity<?> getAllProducts(@RequestHeader HttpHeaders headers) {
 
-        ResponseEntity<?> response = new ResponseEntity<>("[{\"id\":\"11\",\"name\":\"socks\",\"type\":\"CLOTHES\",\"price\":3.39,\"basketIndex\":0}]", HttpStatus.OK);
+        log.info("RES SERVER  getAllProducts >>>>>>>>>>>>> "+headers.toString());
+
+        for (String key : headers.keySet())        {
+            log.info(">>>RES SERVER  getAllProducts  key : "+key+" value : "+headers.get(key));
+        }
+
+        ResponseEntity<?> response = new ResponseEntity<>("{\"id\":\"11\",\"name\":\"socks\",\"type\":\"CLOTHES\",\"price\":3.39,\"basketIndex\":0}", HttpStatus.OK);
         return response;
     }
 

@@ -17,7 +17,7 @@ REALM="amazin"
 GRANT_TYPE="authorization_code"
 CLIENT="webapp"
 CLIENT_SECRET="cc48f8ad-80d3-4019-8d36-7dfb6f5c86e7"
-USER="justind"
+USER="justin"
 USER_PASSWORD="12jnd34"
 
 echo "Keycloak host : $KEYCLOAK"
@@ -72,5 +72,3 @@ echo ${PART2_BASE64} | base64 -D | jq .
 
 
 curl  -H "Authorization: Bearer ${ACCESS_TOKEN}" http://127.0.0.1:8080/auth/realms/amazin/protocol/openid-connect/userinfo
-
-curl  -v -H "Authorization: Bearer ${ACCESS_TOKEN}" http://127.0.0.1:8081/api/products/all

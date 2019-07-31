@@ -37,5 +37,6 @@ zuul:
       path: /all
       url: http://127.0.0.1:1080/api/products
       stripPrefix: true
-
+      sensitiveHeaders: Cookie,Set-Cookie
+  sensitiveHeaders: Cookie,Set-Cookie
 

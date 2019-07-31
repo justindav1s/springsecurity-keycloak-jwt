@@ -23,11 +23,16 @@ public class AuthorityExtractor extends JwtAuthenticationConverter {
 
         Collection<String> authorities = new ArrayList<String>();
 
-        log.debug("Extracting Roles");
+        log.debug("Extracting authorities.");
 
-        authorities = (Collection<String>) jwt.getClaims().get("authorities");
+        Collection<String> jwtAuthorities = (Collection<String>) jwt.getClaims().get("authorities");
 
-        log.debug("Found authorities : " + authorities);
+        if (jwtAuthorities != null) {
+            authorities = jwtAuthorities;
+            log.debug("Found authorities : " + authorities);
+        }
+        else
+            log.debug("No authorities found.");
 
         return authorities.stream()
                 .map(SimpleGrantedAuthority::new)
