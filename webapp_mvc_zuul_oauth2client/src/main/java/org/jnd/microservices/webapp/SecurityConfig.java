@@ -1,13 +1,14 @@
 package org.jnd.microservices.webapp;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
-import org.springframework.security.oauth2.core.oidc.OidcUserInfo;
 import org.springframework.security.oauth2.core.oidc.user.OidcUserAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2UserAuthority;
 
@@ -23,12 +24,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/index.html").hasAuthority("products")
-                .antMatchers("/products").hasAuthority("products")
-                .antMatchers("/test.html").hasAuthority("products")
-                .antMatchers("/all").hasAuthority("products")
-                .antMatchers("/").hasAuthority("products")
-                .antMatchers("/**").denyAll()
+                .mvcMatchers("/index.html").hasAuthority("products")
+                .mvcMatchers("/products").hasAuthority("products")
+                .mvcMatchers("/test.html").hasAuthority("products")
+                .mvcMatchers("/all").hasAuthority("products")
+                .mvcMatchers("/").hasAuthority("products")
+                .mvcMatchers("/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .oauth2Login()
@@ -65,6 +66,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             return collect;
         };
     }
+
+
+//    @Bean
+//    WebClient webClient(ClientRegistrationRepository clientRegistrations,
+//                        OAuth2AuthorizedClientRepository authorizedClients) {
+//        ServletOAuth2AuthorizedClientExchangeFilterFunction oauth =
+//                new ServletOAuth2AuthorizedClientExchangeFilterFunction(clientRegistrations, authorizedClients);
+//        // (optional) explicitly opt into using the oauth2Login to provide an access token implicitly
+//         oauth.setDefaultOAuth2AuthorizedClient(true);
+//        // (optional) set a default ClientRegistration.registrationId
+//         oauth.setDefaultClientRegistrationId("keycloak");
+//        return WebClient.builder()
+//                .apply(oauth.oauth2Configuration())
+//                .build();
+//    }
 
 }
 

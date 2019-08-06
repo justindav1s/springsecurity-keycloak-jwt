@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <!--<include resource="org/springframework/boot/logging/logback/base.xml"/>-->
+    <!-- include resource="org/springframework/boot/logging/logback/base.xml"/ -->
     <logger name="org.springframework" level="INFO"/>
     <logger name="org.apache.tomcat" level="INFO"/>
     <logger name="org.apache.catalina" level="INFO"/>
@@ -10,6 +10,16 @@
     <logger name="org.springframework.core" level="INFO"/>
     <logger name="org.hibernate" level="INFO"/>
     <logger name="org.jnd" level="DEBUG"/>
+    <logger name="org.springframework.security.web.FilterChainProxy" level="INFO"/>
+    <logger name="org.apache.http.impl.conn.PoolingHttpClientConnectionManager" level="INFO"/>
+    <logger name="org.apache.http.headers" level="INFO"/>
+    <logger name="org.springframework.security.web.util.matcher.AntPathRequestMatcher" level="INFO"/>
+    <logger name="org.springframework.security.web.util.matcher.AndRequestMatcher" level="INFO"/>
+    <logger name="org.apache.http.wire" level="INFO"/>
+    <logger name="com.netflix.zuul.http.HttpServletRequestWrapper" level="INFO"/>
+    <logger name="io.netty" level="INFO"/>
+    <logger name="org.aspectj" level="INFO"/>
+    <logger name="io.lettuce" level="INFO"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <target>System.out</target>
@@ -18,7 +28,7 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
+    <root level="TRACE">
         <appender-ref ref="STDOUT" />
     </root>
 </configuration>

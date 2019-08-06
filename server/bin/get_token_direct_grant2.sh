@@ -20,22 +20,15 @@ CLIENT_SECRET="cc48f8ad-80d3-4019-8d36-7dfb6f5c86e7"
 USER="test123"
 USER_PASSWORD="test%C2%A3123"
 
-#echo "Keycloak host : $KEYCLOAK"
-
-
-#Get Token
-POST_BODY="scope=openid&grant_type=${GRANT_TYPE}&client_id=${CLIENT}&client_secret=${CLIENT_SECRET}&username=${USER}&password=${USER_PASSWORD}"
-
-#POST_BODY="grant_type=${GRANT_TYPE}&client_id=${CLIENT}&username=${USER}&password=${USER_PASSWORD}"
-
-
 echo "Keycloak host : $KEYCLOAK"
-echo POST_BODY=${POST_BODY}
 
-RESPONSE=$(curl -sk \
-    -d ${POST_BODY} \
-    -H "Content-Type: application/x-www-form-urlencoded" \
-    ${KEYCLOAK}/auth/realms/${REALM}/protocol/openid-connect/token)
+curl -vk \
+    -d "client_secret=cc48f8ad-80d3-4019-8d36-7dfb6f5c86e7" \
+    -d "client_id=webapp" \
+    -d "username=test123" \
+    -d "password=test123" \
+    -d "grant_type=password" \
+    "${KEYCLOAK}/auth/realms/${REALM}/protocol/openid-connect/token"
 
 echo "RESPONSE"=${RESPONSE}
 ACCESS_TOKEN=$(echo ${RESPONSE} | jq -r .access_token)

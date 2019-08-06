@@ -1,12 +1,18 @@
 server:
   port: 9080
+  servlet:
+    session:
+      timeout: 1m
+  session:
+    timeout: 1m
 
 logging:
   level:
     org:
       thymeleaf: INFO
       springframework:
-        security: INFO
+        security: TRACE
+
 
 spring:
   application:
@@ -18,7 +24,7 @@ spring:
         registration:
           keycloak:
             client-id: webapp
-            client-secret: "cc48f8ad-80d3-4019-8d36-7dfb6f5c86e7"
+            client-secret: "5fd64c9b-a065-46e8-b49b-3203c1ea586e"
             authorization-grant-type: authorization_code
             redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
             scope: openid
@@ -30,6 +36,14 @@ spring:
             userNameAttribute: name
             jwk-set-uri: "http://127.0.0.1:8080/auth/realms/amazin/protocol/openid-connect/certs"
 
+
+
+
+  session:
+    store-type: redis
+  redis:
+    host: localhost
+    port: 6379
 
 zuul:
   routes:
